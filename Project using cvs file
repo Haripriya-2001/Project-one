@@ -1,0 +1,122 @@
+Name of the file: file.py
+
+file=open('Student_Data.csv', 'r')
+each=file.read()     #each=print each line in the file
+print(each)
+
+Name of the file: student data into csv file.py
+
+import csv
+
+def csv_format1(Previous_list):
+
+    print("The Existing List of the Class")
+
+    #Getting input from the user for print the student details
+    n=int(input("\nHow many student information is required: "))
+    for i in range(0,n):
+        Student_Data=input("\nEnter student information (Roll_no Name Age Phone_no Address E-mail_ID): ")
+        print(Student_Data)
+
+
+        #split
+        Student_Data_list=Student_Data.split(' ')
+        print("The split up student information list is: ",str(Student_Data_list))
+
+        print("\nStudent Information is -\nRoll_no: {}\nName: {}\nAge: {}\nPhone_no: {}\nAddress: {}\nE-mail_ID: {}"
+              .format(Student_Data_list[0],Student_Data_list[1],Student_Data_list[2],Student_Data_list[3],Student_Data_list[4],Student_Data_list[5]))
+
+        write_in_csv_format(Student_Data_list)
+
+def write_in_csv_format(Data_list):
+    with open('Student_Data.csv', 'a', newline='')as csv_file:
+        writer=csv.writer(csv_file)
+
+        if csv_file.tell()==0:
+            writer.writerow(["Roll_no", "Name", "Age", "Phone_no", "Address", "E-mail_ID"])
+
+        writer.writerow(Data_list)
+
+
+
+def csv_format2(Add_list):
+
+    print("The New list after adding new student ")
+
+    num=int(input("Enter how many students are newly joined: "))
+    index=int(input('\nEnter the index between 0 and {len(Previous_list)-1} to the given student_info_list: '))
+    for index in num:
+        Student_Data=str(input("Enter student information (Roll_no Name Age Phone_no Address E-mail_ID): "))
+        print(Student_Data)
+
+
+        #split
+        Student_Data_list=Student_Data.split(' ')
+        print("The split up student information list is: ",str(Student_Data_list))
+
+        print("\nStudent Information is -\nRoll_no: {}\nName: {}\nAge: {}\nPhone_no: {}\nAddress: {}\nE-mail_ID: {}"
+              .format(Student_Data_list[index]))
+
+        write_in_csv_format1(Student_Data_list)
+
+
+def write_in_csv_format1(Data_list):
+    with open('Student_Data.csv', 'a', newline='')as csv_file:
+        writer=csv.writer(csv_file)
+
+        if csv_file.tell()==0:
+            writer.writerow.insert(["S.no", "Name", "Age", "Phone_no", "E-mail_ID"])
+
+        writer.writerow.insert(Data_list)
+
+
+def csv_format3(Search_list):
+
+    csv_format1(Previous_list)
+
+    x=int(input("Enter the student information to be searched: "))
+    result=csv_search(Previous_list,x)
+    print("The number which is searched is present in the index is ",result)
+
+
+def csv_search(Previous_list,x):
+
+    for i in range(len(Previous_list)):
+
+        if Previous_list[i]==x:
+            return i
+    return -1
+
+def csv_format4(Delete_list):
+
+    csv_format1(Previous_list)
+
+    x=int(input("Enter the roll number to be deleted: "))
+    Previous_list.remove(x)
+    print("The list after deletion is ",Previous_list)
+
+
+if __name__=='__main__':
+
+    print("WELCOME TO STUDENT INFORMATION SYSTEM")
+
+    print("Choose your choice: \n1.Previous_list \n2.Add_list \n3.Search_list \n4.Delete_list\n")
+
+    std=int(input("Enter the class: "))
+    print("Student Information of class is ",std)
+
+    condition= True
+
+    while(condition):
+
+        choice_list=input("\nEnter your choice: ")
+        csv_format1(choice_list)
+        csv_format2(choice_list)
+        csv_format3(choice_list)
+        csv_format4(choice_list)
+
+        check=input("Tell yes/no for further viewing ")
+        if(check=='yes'):
+            condition= True
+        elif(check=='no'):
+            condition= False
